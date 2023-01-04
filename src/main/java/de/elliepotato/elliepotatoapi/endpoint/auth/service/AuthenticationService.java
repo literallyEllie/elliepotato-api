@@ -90,7 +90,9 @@ public class AuthenticationService {
         User user = repository.findByUsername(request.getUsername())
                 .orElseThrow(ApiError.BAD_LOGIN_CREDENTIALS::createException);
 
-        // check
+        // Hello
+        user.setLastLogin(System.currentTimeMillis());
+        repository.save(user);
 
         return new AuthenticationResponse(
                 jwtService.generateToken(user)

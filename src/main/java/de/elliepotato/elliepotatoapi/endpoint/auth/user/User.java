@@ -20,9 +20,9 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String username;
     private String password;
-
     @Enumerated(EnumType.STRING)
     private UserRole role;
+    private long lastLogin;
 
     public User() {
     }
@@ -90,4 +90,13 @@ public class User implements UserDetails {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public long getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(long lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
 }
