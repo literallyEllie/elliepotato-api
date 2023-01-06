@@ -17,7 +17,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
     runtimeOnly("org.postgresql:postgresql")
 
     // JWT
@@ -31,6 +33,8 @@ dependencies {
         exclude(group = "junit", module = "junit")
         exclude(group = "org.junit.vintage")
     }
+    testImplementation("com.h2database:h2:2.1.214")
+
 }
 
 tasks.withType<Test> {

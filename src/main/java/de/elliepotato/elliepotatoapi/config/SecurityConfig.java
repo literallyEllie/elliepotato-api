@@ -1,5 +1,7 @@
 package de.elliepotato.elliepotatoapi.config;
 
+import de.elliepotato.elliepotatoapi.filter.JwtAuthenticationFilter;
+import de.elliepotato.elliepotatoapi.filter.RatelimitFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -13,15 +15,19 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
+    private final JwtAuthenticationFilter jwtAuthFilter;
+    private final RatelimitFilter ratelimitFilter;
+
 
     public SecurityConfig(
+            AuthenticationProvider authenticationProvider,
             JwtAuthenticationFilter jwtAuthFilter,
-            AuthenticationProvider authenticationProvider
+            RatelimitFilter ratelimitFilter
             ) {
-        this.jwtAuthFilter = jwtAuthFilter;
         this.authenticationProvider = authenticationProvider;
+        this.jwtAuthFilter = jwtAuthFilter;
+        this.ratelimitFilter = ratelimitFilter;
     }
 
     @Bean
@@ -40,6 +46,7 @@ public class SecurityConfig {
                 .and()
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(ratelimitFilter, JwtAuthenticationFilter.class)
                 .build();
     }
 

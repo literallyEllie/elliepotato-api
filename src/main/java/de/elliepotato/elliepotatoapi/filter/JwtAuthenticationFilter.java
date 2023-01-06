@@ -1,4 +1,4 @@
-package de.elliepotato.elliepotatoapi.config;
+package de.elliepotato.elliepotatoapi.filter;
 
 import de.elliepotato.elliepotatoapi.endpoint.auth.service.JwtService;
 import jakarta.servlet.FilterChain;
